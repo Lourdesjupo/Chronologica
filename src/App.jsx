@@ -4,6 +4,9 @@ import './styles/core/app.css'
 import Header from './components/Header'
 import { Route, Routes } from 'react-router-dom';
 import { HashRouter } from 'react-router-dom';
+import Home from './components/Home';
+
+
 
 function App() {
   return (
@@ -11,8 +14,8 @@ function App() {
       <HashRouter>
           <Header/>
         <Routes>
-          {/* <Route path='/' element={<Page1 />} />
-          <Route path='/2' element={<Page2 />} /> */}
+          <Route path='/' element={<Home />} />
+
         </Routes>
       </HashRouter>
     </>
