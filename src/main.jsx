@@ -8,12 +8,12 @@ import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 
 import { createTheme, ThemeProvider  } from '@mui/material/styles';
-import { green, purple } from '@mui/material/colors';
+import { green } from '@mui/material/colors';
 
 const theme = createTheme({
   palette: {
     primary: {
-      main: purple[500],
+      main: '#4ad9bf',
     },
     secondary: {
       main: green[500],

@@ -1,28 +1,22 @@
-import './App.css'
-import Page1 from './Page1'
-import Page2 from './Page2'
-import NotFoundPage from './NotFoundPage'
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
+// import NotFoundPage from './NotFoundPage'
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Page1/>,
-    errorElement: <NotFoundPage />,
-  },
-  {
-    path: "/2",
-    element: <Page2/>,
-  },
-]);
+import './styles/core/app.css'
+import Header from './components/Header'
+import { Route, Routes } from 'react-router-dom';
+import { HashRouter } from 'react-router-dom';
 
 function App() {
   return (
-    <RouterProvider router={router} />
-  )
+    <>
+      <HashRouter>
+          <Header/>
+        <Routes>
+          {/* <Route path='/' element={<Page1 />} />
+          <Route path='/2' element={<Page2 />} /> */}
+        </Routes>
+      </HashRouter>
+    </>
+  );
 }
 
-export default App
+export default App;
