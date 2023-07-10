@@ -8,16 +8,27 @@ import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 
 import { createTheme, ThemeProvider  } from '@mui/material/styles';
-import { green } from '@mui/material/colors';
+
 
 const theme = createTheme({
   palette: {
+     type: 'light',
     primary: {
-      main: '#4ad9bf',
+      main: '#822b40',
     },
     secondary: {
-      main: green[500],
+      main: '#D4A0A7',
     },
+    success: {
+      main: '#81c784',
+    },
+    error: {
+      main: '#dc521d',
+    },
+    warning: {
+      main: '#e8c85f',
+    },
+  
   },
 });
 ReactDOM.createRoot(document.getElementById('root')).render(

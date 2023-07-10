@@ -8,7 +8,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
-import logo from '../assets/ChronoLogica-Logo.ico';
+import logo from '../assets/ChronoLogica-Logo.png';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 

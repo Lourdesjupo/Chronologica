@@ -11,9 +11,11 @@ function Home() {
     setValue(newValue);
   };
 
+ 
+
   return (
     <Box sx={{ width: '100%' }}>
-      <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+      <Box sx={{ mb:5, borderBottom: 1, borderColor: 'divider' }}>
         <Tabs
           value={value}
           onChange={handleChange}
@@ -24,6 +26,7 @@ function Home() {
         </Tabs>
       </Box>
       {value === 0 ? <OneTimeList/> : <TrackedTimeList/>}
+
     </Box>
   );
 }
