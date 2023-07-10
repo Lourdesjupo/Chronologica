@@ -18,18 +18,17 @@ import LocalDrinkIcon from '@mui/icons-material/LocalDrink';
 import { useState } from 'react';
 
 function AddTask_OneTime() {
-  const [icon, setIcon] = useState([{id:'PetsIcon', state: true},{id:'PetsIcon', state: true},{id:'PetsIcon', state: true}])
+  const [icon, setIcon] = useState([{id:'PetsIcon', state: true},{id:'LocalDrinkIcon', state: true},{id:'ChecklistIcon', state: true}])
   const handleClick =(ev)=>{
         const id = ev.currentTarget.id;
-        const iconClicked = icon.find((icon)=>{
-          return icon.id === id
-        })
-        iconClicked.state = !iconClicked.state
-        setIcon([...icon])
-    console.log(id)
-
- 
-      } 
+        icon[id].state = !icon[id].state
+        setIcon([...icon],)
+        console.log(id)
+        
+        
+      }
+      console.log(icon['PetsIcon'].state)
+      console.log(icon.find((item)=>item.id ==='PetsIcon') )
   return (
     <>
       <Box
@@ -55,7 +54,7 @@ function AddTask_OneTime() {
           component='li'
         >
           <Grid item xs={0}>
-            <Fab id="PetIcon" onClick={handleClick} color={icon.id}>
+            <Fab id="PetIcon" onClick={handleClick} color={icon.find((item)=>item.id ==='PetsIcon').state === true ? 'primary' : 'secondary' }>
               {<PetsIcon fontSize='large' />}
             </Fab>
           </Grid>
