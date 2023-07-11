@@ -31,24 +31,28 @@ function AddTask_OneTime() {
     { id: "HeadphonesBatteryIcon", state: true },
     { id: "EditNoteIcon", state: true },
     { id: "ChecklistIcon", state: true },
-    { id: "LocalDrinkIcon", state: true },
     { id: "LocalDrinkIcon", state: true }
-
   ]);
 
   const handleClick = (ev) => {
     const id = ev.currentTarget.id;
     const foundIndexIcon= icons.findIndex(item=>item.id === id); 
     icons[foundIndexIcon].state = !icons[foundIndexIcon].state; 
+    console.log(icons);
     setIcons([...icons]);
   };
 
+  const foundColor = (icon)=>{
+    return  icons.find(item => item.id === icon.id).state === true ? 'primary' : 'default'; 
+    
+  }
+
   const rendersIcons=()=>{
     return icons.map((item, index)=>{
-      return <Grid key={index} item xs={0}>
-            <Fab id={item.id} 
+      return <Grid key={index} id={item.id}  item xs={0}>
+            <Fab key={index} id={item.id} 
               onClick={handleClick} 
-              color={icons.find(item=>item.id ===item.id).state === true ? 'primary' : 'default'}>
+              color={ foundColor(item) }>
               { 
                 item.id === 'PetsIcon'? <PetsIcon fontSize="large" /> : 
                 item.id === 'LocalDrinkIcon'? <LocalDrinkIcon fontSize="large" /> : 
@@ -70,7 +74,6 @@ function AddTask_OneTime() {
             </Fab>
           </Grid>
     }); 
-   
   }
 
   return (
