@@ -41,9 +41,10 @@ function AddTask_TrackTime () {
         </Box>
         <Box sx={{m:4}}>
           <Typography sx={{mb:3}}>Tiempo estimado en acabarla:</Typography>
-          <Stack direction="row" spacing={2} >
-            <TextField id="filled-basic" label="Horas" variant="filled" type="number" value={hours} onChange={handleHours}/>
-            <TextField id="filled-basic" label="Minutos" variant="filled" type="number" value={mins}onChange={handleMins}/>
+          <Stack direction="row" spacing={2} alignItems="center">
+            <TextField id="filled-basic" label="Horas" variant="filled" type="number" value={hours} onChange={handleHours} sx={{width:100}}/>
+            <Typography>:</Typography>
+            <TextField id="filled-basic" label="Minutos" variant="filled" type="number" value={mins}onChange={handleMins} sx={{width:100}}/>
           </Stack>
         </Box>
         <Stack  alignItems="flex-end"><Button variant="outlined"sx={{m:4}}>Añadir tarea</Button></Stack>
