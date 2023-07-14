@@ -1,4 +1,4 @@
-import { Box, Fab, Grid, Stack, TextField } from "@mui/material";
+import { Box, Button, Fab, FormControl, Grid, InputLabel, MenuItem, Select, Stack, TextField, Typography } from "@mui/material";
 /* eslint-disable react/prop-types */
 import PetsIcon from "@mui/icons-material/Pets";
 import YardIcon from "@mui/icons-material/Yard";
@@ -33,7 +33,7 @@ function AddTask_OneTime() {
     { id: "ChecklistIcon", state: true },
     { id: "LocalDrinkIcon", state: true }
   ]);
-
+  const [frecuency, setFrecuency] = useState('')
   const handleClick = (ev) => {
     const id = ev.currentTarget.id;
     const foundIndexIcon= icons.findIndex(item=>item.id === id); 
@@ -46,6 +46,7 @@ function AddTask_OneTime() {
     return  icons.find(item => item.id === icon.id).state === true ? 'primary' : 'default'; 
     
   }
+  
 
   const rendersIcons=()=>{
     return icons.map((item, index)=>{
@@ -75,6 +76,7 @@ function AddTask_OneTime() {
           </Grid>
     }); 
   }
+  const handleFrecuency =(event)=>{return  setFrecuency(event.target.value)} 
 
   return (
     <>
@@ -91,6 +93,7 @@ function AddTask_OneTime() {
           variant="outlined"
         />
       </Box>
+      <Typography variant="body1"sx={{ mt:4,ml:4 }}>Selecciona un icono:</Typography>
       <Stack component="ul" sx={{ mr: 15 }}>
         <Grid
           container
@@ -104,6 +107,27 @@ function AddTask_OneTime() {
    
         </Grid>
       </Stack>
+      <Typography variant="body1"sx={{ mt:8,ml:4 }}>Selecciona la frecuencia en la que deseas recibir una alerta:</Typography>
+      <TextField id="standard-basic" label="Standard" variant="standard" sx={{ m: 4, minWidth: 120 }}/>
+      <FormControl variant="standard" sx={{ m: 4, minWidth: 120 }}>
+      <InputLabel id="demo-simple-select-standard-label">Frecuencia</InputLabel>
+        <Select
+          labelId="demo-simple-select-standard-label"
+          id="demo-simple-select-standard"
+          value={frecuency}
+          onChange={handleFrecuency}
+          label="Frecuencia"
+
+        >
+          <MenuItem value="">
+            <em>None</em>
+          </MenuItem>
+          <MenuItem value={'dias'}>Días</MenuItem>
+          <MenuItem value={'semanas'}>Semanas</MenuItem>
+          <MenuItem value={'meses'}>Meses</MenuItem>
+        </Select>
+        </FormControl>
+        <Stack  alignItems="flex-end"><Button variant="outlined"sx={{m:4}}>Añadir tarea</Button></Stack>
     </>
   );
 }
