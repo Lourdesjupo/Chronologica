@@ -1,18 +1,23 @@
 /* eslint-disable no-unused-vars */
-import { Fab, Stack, Typography } from '@mui/material';
+import { Badge, Fab, Stack, Typography } from '@mui/material';
 import TaskIcon from './TaskIcon';
+import { useState } from 'react';
+import { red } from '@mui/material/colors';
 
 // eslint-disable-next-line react/prop-types
-function OneTimeItem({ name, icon, id }) {
+function OneTimeItem({ name, icon, id, taskStatus,onClickIcon }) {
+
   return (
     <>
       <Stack alignItems='center'
       justifyContent='center'
       component='li'
       sx={{m:2}}>
-        <Fab color='secondary'>
-          <TaskIcon icon={icon} />
+      <Badge  color={taskStatus} sx={{zIndex: 1051}} badgeContent=" " overlap="circular" variant="dot">
+       <Fab color='secondary'onClick={onClickIcon} >
+          <TaskIcon icon={icon}/>
         </Fab>
+        </Badge>
         <Typography color="#00000099" sx={{ mt: 2 }}>{name}</Typography>
       </Stack>
     </>

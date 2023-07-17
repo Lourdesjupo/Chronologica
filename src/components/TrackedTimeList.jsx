@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { getTrackedListTasks } from "../services/ApiTrackedTime";
 import TrackedTimeItem from "./TrackedTimeItem";
-import { Button, Stack } from "@mui/material";
+import { Button, Stack, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 function TrackedTimeList(){
 
@@ -12,7 +12,7 @@ function TrackedTimeList(){
     getTrackedListTasks().then((trackedListTask)=>{
         setListTasks(trackedListTask)
     })
-
+   
   },[])
 
     return (
@@ -25,6 +25,7 @@ function TrackedTimeList(){
             key={task.id}
             id={task.id}
             nameTask={task.name}
+            color={task.color}
             estimatedTime={task.estimatedTime}
             totalTime={task.totalTime}
             />
@@ -32,7 +33,9 @@ function TrackedTimeList(){
         })}
      <Stack alignItems='center' sx={{ mt: 10 }}>
         <Button variant='contained'>
-         <Link to='/addtrackedtask'>Añadir Tarea</Link> 
+         <Link style={{textDecorationLine: "none"}} to='/addtrackedtask'>
+          <Typography sx={{color:'white'}}>Añadir Tarea</Typography>
+         </Link> 
         </Button>
       </Stack>
     </>

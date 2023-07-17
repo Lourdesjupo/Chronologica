@@ -58,7 +58,7 @@ function Header() {
             sx={{
               mr: 2,
               display: { xs: 'none', md: 'flex' },
-              fontFamily: 'roboto',
+              fontFamily: 'quicksand',
               fontWeight: 700,
               // letterSpacing: '.3rem',
               color: 'inherit',
@@ -71,9 +71,6 @@ function Header() {
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
               size='large'
-              // aria-label='account of current user'
-              // aria-controls='menu-appbar'
-              // aria-haspopup='true'
               onClick={handleOpenNavMenu}
               color='inherit'
             >
@@ -95,6 +92,7 @@ function Header() {
               onClose={handleCloseNavMenu}
               sx={{
                 display: { xs: 'block', md: 'none' },
+                fontFamily:'raleway'
               }}
             >
               {pages.map((page) => (
@@ -122,7 +120,7 @@ function Header() {
               mr: 2,
               display: { xs: 'flex', md: 'none' },
               flexGrow: 1,
-              fontFamily: 'roboto',
+              fontFamily: 'quicksand',
               fontWeight: 700,
               color: 'inherit',
               textDecoration: 'none',

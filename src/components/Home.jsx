@@ -19,7 +19,6 @@ function Home() {
         <Tabs
           value={value}
           onChange={handleChange}
-          aria-label='basic tabs example'
         >
           <Tab label='One Time Tasks' />
           <Tab label='Tracked Time Tasks' />
