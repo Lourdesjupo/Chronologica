@@ -1,21 +1,27 @@
+import CalculateTime from './CalculateTime';
 
-export const getOneTimeListTasks= async ()=> {
-  const response = await fetch('http://localhost:4500/api/getonetimetasks')
-  const dataJson= await response.json()
+export const getOneTimeListTasks = async () => {
+  const response = await fetch('http://localhost:4500/api/getonetimetasks');
+  const dataJson = await response.json();
   const result = dataJson.map((task) => {
-     return {
+    return {
       id: task.id,
       name: task.name,
       icon: task.iconName,
       create: task.createdAt,
       alertQty: task.alertQty,
-      alertUnits: task.alertUnits
-    }
-
-  })
-  console.log('esto es del APi', dataJson);
+      alertUnits: task.alertUnits,
+      lastComplete: task.completedDate,
+      status: CalculateTime({
+        lastComplete: task.completedDate,
+        alertQty: task.alertQty,
+        alertUnits: task.alertUnits,
+      }),
+    };
+  });
+  console.log('esto es del APi', result);
   return result;
-}
+};
 
 // return new Promise((resolve) => {
 //   resolve([

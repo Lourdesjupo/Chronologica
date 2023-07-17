@@ -5,30 +5,43 @@ import OneTimeItem from './OneTimeItem';
 import { Link } from 'react-router-dom';
 import OneTimeChecked from '../services/ApiOneTimeChecked';
 
+
 function OneTimeList() {
   const [oneTimeList, setOneTimeList] = useState([]);
 
   useEffect(() => {
     getOneTimeListTasks().then((oneTimeList) => {
       setOneTimeList(oneTimeList);
-      console.log('oneTimeList',oneTimeList)
+
+      console.log('oneTimeList', oneTimeList);
     });
   }, []);
+
   const handleClickAddTask = (ev) => {
     console.log(ev.target);
   };
 
-  const getTaskStatus = (id)=>{
-    console.log(id)
+  const getTaskStatus = (status) => {
+    if (status === false) {
+      return 'error';
+    } else if (status === true) {
+      return 'success';
+    } else if (status === null) {
+      return 'outline';
+    }
+  };
 
-    return "error"
-  }
+  const handleClickIcon = (id) => {
+    OneTimeChecked(id).then(() => {
+      getOneTimeListTasks().then((oneTimeList) => {
+        setOneTimeList(oneTimeList);
 
-  const handleClickIcon =(id)=>{
-    OneTimeChecked(id)
-  }
+        console.log('oneTimeList', oneTimeList);
+      });
+    });
+  };
 
-  console.log(oneTimeList)
+  console.log(oneTimeList);
   return (
     <>
       <Stack
@@ -45,17 +58,19 @@ function OneTimeList() {
               id={oneTime.id}
               name={oneTime.name}
               icon={oneTime.icon}
-              onClickIcon={()=>{handleClickIcon(oneTime.id)}}
-              taskStatus={getTaskStatus(oneTime.id)}
-
+              onClickIcon={() => {
+                handleClickIcon(oneTime.id);
+              }}
+              taskStatus={getTaskStatus(oneTime.status)}
             />
           );
         })}
       </Stack>
       <Stack alignItems='center' sx={{ mt: 10 }}>
         <Button variant='contained' onClick={handleClickAddTask}>
-          <Link style={{textDecorationLine: "none"}} to='/addonetimetask'>
-            <Typography sx={{color:'white'}}> Añadir Tarea</Typography></Link>
+          <Link style={{ textDecorationLine: 'none' }} to='/addonetimetask'>
+            <Typography sx={{ color: 'white' }}> Añadir Tarea</Typography>
+          </Link>
         </Button>
       </Stack>
     </>
