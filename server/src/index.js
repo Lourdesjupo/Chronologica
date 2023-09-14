@@ -4,10 +4,10 @@
 // Para probar el API, entrar en <http://localhost:4500/api/items>
 
 // Imports
-
 const express = require("express");
 const cors = require("cors");
 const mysql = require("mysql2/promise");
+require('dotenv').config();
 
 
 
@@ -22,7 +22,7 @@ server.use(express.json({limit: "25mb"}));
 
 // Poner a escuchar el servidor
 
-const port = 4500;
+const port = process.env.PORT;
 server.listen(port, () => {
   console.log(`Ya se ha arrancado nuestro servidor: http://localhost:${port}/`);
 });
@@ -31,10 +31,11 @@ server.listen(port, () => {
 
 async function connectDb() {
   const connection = await mysql.createConnection({
-    host: 'sql.freedb.tech',
-    user: 'freedb_root_dev',
-    password: 'k&dW9J#P#6h9VP*',
-    database: 'freedb_chronoLogica',
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASS,
+    database: process.env.DB_DATABASE_NAME,
+    port:process.env.DB_PORT
   });
 
   await connection.connect();
