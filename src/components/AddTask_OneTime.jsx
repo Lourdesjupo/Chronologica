@@ -175,7 +175,7 @@ function AddTask_OneTime() {
         </Grid>
       </Stack>
       <Typography variant='body1' sx={{ mt: 8, ml: 4 }}>
-        Selecciona la frecuencia en la que deseas recibir una alerta:
+        Selecciona la frecuencia en la que deseas realizar la tarea:
       </Typography>
       <TextField
         id='standard-basic'

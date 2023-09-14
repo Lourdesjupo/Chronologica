@@ -5,9 +5,9 @@ import TrackedTimeItem from "./TrackedTimeItem";
 import { Button, Stack, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 function TrackedTimeList(){
-
+//listTask = {color: rgb..., estimatedTime: int, id, name: string}
   const [listTasks,setListTasks] = useState([])
-
+console.log('listas de tareasm', listTasks)
   useEffect (()=>{
     getTrackedListTasks().then((trackedListTask)=>{
         setListTasks(trackedListTask)

@@ -33,6 +33,7 @@ function OneTimeItem({ name, icon, id, taskStatus, onClickIcon }) {
           {name}
         </Typography>
       </Stack>
+
     </>
   );
 }
