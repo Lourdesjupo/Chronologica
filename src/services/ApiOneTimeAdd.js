@@ -1,6 +1,6 @@
 
 function AddOneTask(data) {
-return fetch('http://localhost:4500/api/addonetask', {
+return fetch(`${import.meta.env.CHRONOLOGICA_API}/api/addonetask`, {
   method: 'POST',
   headers: { 'content-type': 'application/json' },
   body: JSON.stringify(data),

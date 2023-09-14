@@ -1,5 +1,7 @@
 const allTracks = async (id)=>{
-  const response = await fetch(`http://localhost:4500/api/allTracks/${id}`);
+  const response = await fetch(
+    `${import.meta.env.CHRONOLOGICA_API}/api/allTracks/${id}`
+  );
   const dataJson = await response.json();
 
   // const start = dataJson[0].startTime

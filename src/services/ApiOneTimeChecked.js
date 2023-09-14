@@ -1,8 +1,8 @@
 function OneTimeChecked(id) {
-  return fetch('http://localhost:4500/api/addonetaskchecked', {
+  return fetch(`${import.meta.env.CHRONOLOGICA_API}/api/addonetaskchecked`, {
     method: 'POST',
     headers: { 'content-type': 'application/json' },
-    body: JSON.stringify({id:id}),
+    body: JSON.stringify({ id: id }),
   })
     .then((response) => response.json())
     .then((result) => {

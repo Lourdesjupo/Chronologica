@@ -1,5 +1,7 @@
 export const getTrackedListTasks =  async ()=> {
-  const response = await fetch('http://localhost:4500/api/tracktasklist');
+  const response = await fetch(
+    `${import.meta.env.CHRONOLOGICA_API}/api/tracktasklist`
+  );
   const dataJson= await response.json()
   const result = dataJson.map((task) => {
   return {

@@ -1,7 +1,9 @@
 import CalculateTime from './CalculateTime';
 
 export const getOneTimeListTasks = async () => {
-  const response = await fetch('http://localhost:4500/api/getonetimetasks');
+  const response = await fetch(
+    `${import.meta.env.VITE_CHRONOLOGICA_API}/api/getonetimetasks`
+  );
   const dataJson = await response.json();
   const result = dataJson.map((task) => {
     return {

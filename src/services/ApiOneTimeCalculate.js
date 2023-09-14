@@ -1,5 +1,7 @@
 export const getOneTimeCalculate = async (id) => {
-  const response = await fetch(`http://localhost:4500/api/getonetimecompletedata/${id}`);
+  const response = await fetch(
+    `${import.meta.env.CHRONOLOGICA_API}/api/getonetimecompletedata/${id}`
+  );
   const dataJson = await response.json();
   
   console.log('esto es del APi', dataJson);
