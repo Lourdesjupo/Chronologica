@@ -22,7 +22,6 @@ function OneTimeItem({ name, icon, id, taskStatus, onClickIcon }) {
           color={taskStatus}
           sx={{ }}
           badgeContent=' '
-          
           variant='dot'
         >
           <Fab color='secondary' onClick={onClickIcon}>

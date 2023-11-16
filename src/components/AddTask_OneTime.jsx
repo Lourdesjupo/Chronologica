@@ -147,8 +147,8 @@ function AddTask_OneTime() {
       <Box
         component='form'
         sx={{
-          '& > :not(style)': { m: 4, width: '50ch' },
-        }}
+           m: 4,
+           }}
         autoComplete='off'
       >
         <TextField
@@ -157,6 +157,8 @@ function AddTask_OneTime() {
           variant='outlined'
           value={name}
           onChange={handleClickName}
+          fullWidth
+          sx={{maxWidth:'50ch'}}
         />
       </Box>
       <Typography variant='body1' sx={{ mt: 4, ml: 4 }}>
