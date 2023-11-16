@@ -1,6 +1,6 @@
 const allTracks = async (id)=>{
   const response = await fetch(
-    `${import.meta.env.CHRONOLOGICA_API}/api/allTracks/${id}`
+    `${import.meta.env.VITE_CHRONOLOGICA_API}/api/allTracks/${id}`
   );
   const dataJson = await response.json();
 

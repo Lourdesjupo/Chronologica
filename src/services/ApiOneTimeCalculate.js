@@ -1,6 +1,6 @@
 export const getOneTimeCalculate = async (id) => {
   const response = await fetch(
-    `${import.meta.env.CHRONOLOGICA_API}/api/getonetimecompletedata/${id}`
+    `${import.meta.env.VITE_CHRONOLOGICA_API}/api/getonetimecompletedata/${id}`
   );
   const dataJson = await response.json();
   
