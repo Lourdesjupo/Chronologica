@@ -5,10 +5,12 @@ export const getTrackedListTasks =  async ()=> {
   const dataJson= await response.json()
   const result = dataJson.map((task) => {
   return {
-    id: task.id,
+    id: task.idtrackList,
     name: task.nameTask,
-    color:task.color, 
-    estimatedTime: task.estimatedTime
+    color: task.color,
+    estimatedTime: task.estimatedTime,
+    elapsedTime: task.elapsedTime,
+    startTime: task.startTime ?  new Date(task.startTime) : undefined 
   };
 });
 

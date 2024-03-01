@@ -10,6 +10,7 @@ function TrackedTimeList(){
 console.log('listas de tareasm', listTasks)
   useEffect (()=>{
     getTrackedListTasks().then((trackedListTask)=>{
+      // @TODO: PONER VALIDACIONES DEL TRACKED LIST EJ;que los tipos sean correctos y que existan los datos (campos no vacios) 
         setListTasks(trackedListTask)
     })
    
@@ -27,7 +28,8 @@ console.log('listas de tareasm', listTasks)
             nameTask={task.name}
             color={task.color}
             estimatedTime={task.estimatedTime}
-            totalTime={task.totalTime}
+            elapsedTime={task.elapsedTime}
+            startTime={task.startTime}
             />
           )
         })}

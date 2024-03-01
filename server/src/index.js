@@ -35,7 +35,8 @@ async function connectDb() {
     user: process.env.DB_USER,
     password: process.env.DB_PASS,
     database: process.env.DB_DATABASE_NAME,
-    port:process.env.DB_PORT
+    port:process.env.DB_PORT,
+    timezone: 'Z'
   });
 
   await connection.connect();
@@ -67,7 +68,7 @@ server.post('/api/addonetaskchecked', async (req, res) => {
   console.log('llamo');
   const body = req.body;
   let insert =
-    'INSERT INTO oneTaskCompleted (fkOneTask) VALUE (?)';
+    'INSERT INTO oneTaskCompleted (fkoneTask) VALUE (?)';
   const connect = await connectDb();
   const [resultInsert] = await connect.query(insert, [
     body.id
@@ -82,7 +83,7 @@ server.post('/api/addonetaskchecked', async (req, res) => {
   server.get('/api/getonetimetasks', async (req,res)=>{
     const connect = await connectDb();
     //const selectAll = "SELECT * from oneTask "
-    const selectAll = "SELECT oneTask.id,oneTask.name,oneTask.iconName,oneTask.createdAt,oneTask.alertQty,oneTask.alertUnits,completedDate FROM oneTask LEFT JOIN( SELECT fkOneTask, MAX(completedDate) as completedDate FROM oneTaskCompleted GROUP BY fkOneTask) lastComplete ON oneTask.id = lastComplete.fkOneTask"
+    const selectAll = "SELECT oneTask.idoneTask,oneTask.name,oneTask.iconName,oneTask.createdAt,oneTask.alertQty,oneTask.alertUnits,completedDate FROM oneTask LEFT JOIN( SELECT fkoneTask, MAX(completedDate) as completedDate FROM oneTaskCompleted GROUP BY fkoneTask) lastComplete ON oneTask.idoneTask = lastComplete.fkoneTask"
     const[tasks] = await connect.query(selectAll)
   
 
@@ -95,7 +96,7 @@ server.post('/api/addonetaskchecked', async (req, res) => {
   server.get('/api/getonetimecompletedata/:id', async (req, res) => {
     const id = req.params.id;
     const connect = await connectDb();
-    const selectAll = `select * FROM oneTask, oneTaskCompleted WHERE oneTask.id = oneTaskCompleted.fkOneTask AND id = ${id} order by completedDate DESC LIMIT 1`;
+    const selectAll = `select * FROM oneTask, oneTaskCompleted WHERE oneTask.idoneTask = oneTaskCompleted.fkoneTask AND id = ${id} order by completedDate DESC LIMIT 1`;
     const [tasks] = await connect.query(selectAll);
 
     console.log(tasks);
@@ -127,7 +128,7 @@ server.post('/api/addtracktask', async (req, res) => {
 
 //Get lista de tareas TrackList
   server.get('/api/tracktasklist', async (req, res) => {
-    const selectAll = 'SELECT * from trackList ';
+    const selectAll = 'SELECT tl.idtrackList, tl.nameTask, tl.color, tl.estimatedTime, tl.elapsedTime, tt.startTime FROM trackList as tl LEFT JOIN trackTime as tt ON tl.idtrackList = tt.fktrackList WHERE tt.stopTime is NULL';
     const connect = await connectDb();
     const [result] = await connect.query(selectAll);
     console.log(result);
@@ -143,8 +144,8 @@ server.post('/api/addtracktask', async (req, res) => {
    const connect = await connectDb();
    let insert
   if(req.body.clicked === 'start'){
-    insert = 'INSERT INTO trackTime (fkTrackList,startTime) VALUES (?, ?)';
-    const [resultInsert] = await connect.query(insert, [req.body.idTimeTrack, hoy])
+    insert = 'INSERT INTO trackTime (fktrackList,startTime) VALUES (?, ?)';
+    const [resultInsert] = await connect.query(insert, [req.body.idtrackTime, hoy])
     res.json(
       resultInsert
     );
@@ -168,7 +169,7 @@ server.post('/api/addtracktask', async (req, res) => {
 
   server.get('/api/allTracks/:id', async (req, res) => {
     const id = req.params.id;
-    const allTaskTimes = `select * FROM trackTime, trackList WHERE trackList.id = trackTime.fkTrackList AND id= ? order by stopTime desc LIMIT 1;`;
+    const allTaskTimes = `select * FROM trackTime, trackList WHERE trackList.idtrackList = trackTime.fktrackList AND id= ? order by stopTime desc LIMIT 1;`;
     const connect = await connectDb();
     const [result] = await connect.query(allTaskTimes, [id]);
     connect.end();

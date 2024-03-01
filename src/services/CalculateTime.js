@@ -28,6 +28,7 @@ function CalculateTime(response) {
   }
 
   lastClick = new Date(response.lastComplete);
+  //console.log('lastClick:', lastClick, 'and last complete: ', response.lastComplete)
 
   const result = sumarDias(lastClick, daysForReminder);
 

@@ -3,13 +3,6 @@ const allTracks = async (id)=>{
     `${import.meta.env.VITE_CHRONOLOGICA_API}/api/allTracks/${id}`
   );
   const dataJson = await response.json();
-
-  // const start = dataJson[0].startTime
-
-  // const time = start.split('T')
-  // const hours = time[1].split('.')
-  // const[horas, minutos, segundos] =  hours[0].split(':')
-
   const time = dataJson[0].startTime;
 
   console.log('tiempo', time);

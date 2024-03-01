@@ -7,7 +7,7 @@ export const getOneTimeListTasks = async () => {
   const dataJson = await response.json();
   const result = dataJson.map((task) => {
     return {
-      id: task.id,
+      id: task.idoneTask,
       name: task.name,
       icon: task.iconName,
       create: task.createdAt,

@@ -14,57 +14,25 @@ import addTimeTrack from '../services/ApiTrackTimeRecord';
 import allTracks from '../services/ApiAllTracksAndTime';
 import { useEffect } from 'react';
 
-function TrackedTimeItem({ id, nameTask, color, estimatedTime, totalTime }) {
-  const [record, setRecord] = useState('play');
-  const [recordText, setRecordText] = useState('▶  Iniciar trabajo');
+function TrackedTimeItem({ id, nameTask, color, estimatedTime, elapsedTime, startTime }) {
+  const [taskStatus, setTaskStatus] = useState(startTime ? 'running':'stopped');
+//  console.log('tipo de startTime',typeof startTime, 'startTime:', startTime)
+  const [now, setNow] = useState (new Date())
+  const sessionTimeSecs = Math.round((now - startTime)/1000) 
+  const totalMinutes = Math.floor(sessionTimeSecs /  60)
+  const hours = Math.floor(totalMinutes / 60)
+  const minutes = totalMinutes % 60
+  const secs =  sessionTimeSecs % 60
+  const timer = `${hours < 10 ? '0' : ''}${hours} : ${minutes < 10 ? '0' : ''}${minutes} : ${secs < 10 ? '0' : ''}${secs}`
 
-  //{id: start: , stop:  }
-  const [timer, setTimer] = useState({
+  useEffect(()=>{
+    setInterval(()=>{
+      setNow(new Date())
+    },60000)
+  },[])
 
-  });
-  const [currentTask, setCurrentTask] = useState({});
-  const [startTime, setStartTime] = useState('');
-  const [diff, setDiff] = useState('')
-  //const now = ;
-  console.log('DIFFF', diff )
+  const handleClick = (id) => {
 
-  // useEffect(()=>{
-  //   if(diff)
-  // },[])
-
-
-
-  const handleRecord = (id) => {
-    if (record === 'play') {
-      setRecord('stop');
-      //Envío el id y que se ha clickado start
-      addTimeTrack({ clicked: 'start', idTimeTrack: id });
-      //const now = new Date().getTime()
-      // setInitialTime({id, startTime:now})
-      //Me traigo todas las tareas y las seteo en allTasks
-      allTracks(id).then((data) => {
-        setCurrentTask(data);
-        const date = new Date(data.startTime);
-        const miliseconds = date.getTime();
-        setStartTime(miliseconds);
-        setDiff(new Date(+new Date() - startTime))
-        //const mili = miliseconds.getTime()
-       // console.log('datitos', miliseconds);
-
-        setTimer({hours:'00',minutes:'00',seconds:'00'})
-      });
-
-      return setRecordText('▢  Detener trabajo');
-    } else {
-      setRecord('play');
-      addTimeTrack({ clicked: 'stop', idTimeTrack: id });
-      allTracks().then((data) => {
-        //setAllTasks(data);
-      });
-      // const now = new Date().getTime()
-      //setInitialTime({id, startTime:now})
-      return setRecordText('▶  Iniciar trabajo');
-    }
   };
 
   return (
@@ -89,25 +57,27 @@ function TrackedTimeItem({ id, nameTask, color, estimatedTime, totalTime }) {
 
           <Button
             onClick={() => {
-              handleRecord(id);
+              handleClick();
             }}
           >
             {' '}
-            {recordText}
+            {taskStatus === 'running' ? '▢ Detener trabajo': '▶  Iniciar trabajo'}
           </Button>
           {/* <Button onClick={handleRecord} > ▶ Iniciar trabajo</Button>
             <Button sx={{}} > ▢ Detener trabajo</Button> */}
         </AccordionSummary>
         <AccordionDetails sx={{ backgroundColor: '#F6F4F8' }}>
-          <Typography>
-            Tiempo estimado finalización tarea: {estimatedTime}
-          </Typography>
-          <Typography>Tiempo restante: {estimatedTime - totalTime}</Typography>
+          {estimatedTime !== 0 && 
+          (<>
+            <Typography>Tiempo estimado finalización tarea: {estimatedTime}</Typography>
+            <Typography>Tiempo restante: {estimatedTime - elapsedTime}</Typography>
 
-          <Typography>Tiempo de trabajo: {totalTime}</Typography>
-          <Stack alignItems='flex-end' justifyContent='center' spacing={5}>
+          </>)
+          }
+          {taskStatus === 'running' && (<Typography>Tiempo de trabajo: {timer}</Typography>) }
+          {/* <Stack alignItems='flex-end' justifyContent='center' spacing={5}>
             <Typography>{timer.hours}: {timer.minutes}:{timer.seconds}</Typography>
-          </Stack>
+          </Stack> */}
         </AccordionDetails>
       </Accordion>
     </>

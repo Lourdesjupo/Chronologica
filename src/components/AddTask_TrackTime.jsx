@@ -4,6 +4,8 @@ import { useState } from 'react';
 import addTrackTask from '../services/ApiTrackTimeAdd';
 import { Link } from 'react-router-dom';
 
+// ESTIMATED TIME  = ESTIMATED TIME MINS (El tiempo está calculado en minutos.)
+
 function AddTask_TrackTime() {
   const [color, setColor] = useState('#ffffff');
   const [mins, setMins] = useState(0);
@@ -13,11 +15,6 @@ function AddTask_TrackTime() {
   const hoursInMinutes = parseInt(hours)* 60
   const mins2 =parseInt(mins)
   const total = hoursInMinutes + mins2
-
-  console.log('total', total)
-
-
-
 
   const handleName = (ev) => {
     setName(ev.target.value);
