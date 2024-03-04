@@ -10,7 +10,8 @@ export const getTrackedListTasks =  async ()=> {
     color: task.color,
     estimatedTime: task.estimatedTime,
     elapsedTime: task.elapsedTime,
-    startTime: task.startTime ?  new Date(task.startTime) : undefined 
+    startTime: task.startTime ?  new Date(task.startTime) : undefined, 
+    stopTime: task.stopTime ?  new Date(task.stopTime) : undefined
   };
 });
 

@@ -4,16 +4,32 @@ import { getTrackedListTasks } from "../services/ApiTrackedTime";
 import TrackedTimeItem from "./TrackedTimeItem";
 import { Button, Stack, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
+import addTimeTrack from "../services/ApiTrackTimeRecord";
+
+
 function TrackedTimeList(){
 //listTask = {color: rgb..., estimatedTime: int, id, name: string}
+
   const [listTasks,setListTasks] = useState([])
-console.log('listas de tareasm', listTasks)
+
+  async function handleTaskStatusAction (id, action) {
+    console.log(1)
+    await addTimeTrack(id, action)
+    console.log(2)
+    console.log('addTimeTrack:', id,action)
+    await loadTasks ()
+  }
+
+  async function loadTasks() {
+    const trackedListTask = await getTrackedListTasks()
+    // @TODO: PONER VALIDACIONES DEL TRACKED LIST EJ;
+    //que los tipos sean correctos y que existan los datos (campos no vacios) 
+    setListTasks(trackedListTask)
+  }
+
+  
   useEffect (()=>{
-    getTrackedListTasks().then((trackedListTask)=>{
-      // @TODO: PONER VALIDACIONES DEL TRACKED LIST EJ;que los tipos sean correctos y que existan los datos (campos no vacios) 
-        setListTasks(trackedListTask)
-    })
-   
+    loadTasks ()
   },[])
 
     return (
@@ -30,6 +46,8 @@ console.log('listas de tareasm', listTasks)
             estimatedTime={task.estimatedTime}
             elapsedTime={task.elapsedTime}
             startTime={task.startTime}
+            stopTime={task.stopTime}
+            onTaskStatusAction={handleTaskStatusAction}
             />
           )
         })}

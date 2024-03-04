@@ -128,7 +128,7 @@ server.post('/api/addtracktask', async (req, res) => {
 
 //Get lista de tareas TrackList
   server.get('/api/tracktasklist', async (req, res) => {
-    const selectAll = 'SELECT tl.idtrackList, tl.nameTask, tl.color, tl.estimatedTime, tl.elapsedTime, tt.startTime FROM trackList as tl LEFT JOIN trackTime as tt ON tl.idtrackList = tt.fktrackList WHERE tt.stopTime is NULL';
+    const selectAll = `SELECT tl.idtrackList, tl.nameTask, tl.color, tl.estimatedTime, tl.elapsedTime, MAX(tt.startTime) AS startTime, (SELECT stopTime FROM trackTime WHERE fktrackList = tl.idtrackList AND startTime = MAX(tt.startTime)) AS stopTime FROM trackList AS tl LEFT JOIN trackTime AS tt ON tl.idtrackList = tt.fktrackList GROUP BY tl.idtrackList, tl.nameTask, tl.color, tl.estimatedTime, tl.elapsedTime;`
     const connect = await connectDb();
     const [result] = await connect.query(selectAll);
     console.log(result);
@@ -139,30 +139,39 @@ server.post('/api/addtracktask', async (req, res) => {
   //guardar el dato de stop/start de tracktime
 
   server.post('/api/addTimeTrack', async(req,res)=>{
-   console.log(req.body)
-   const hoy = new Date();
-   const connect = await connectDb();
-   let insert
-  if(req.body.clicked === 'start'){
-    insert = 'INSERT INTO trackTime (fktrackList,startTime) VALUES (?, ?)';
-    const [resultInsert] = await connect.query(insert, [req.body.idtrackTime, hoy])
-    res.json(
-      resultInsert
-    );
-  } else{
-    const lastStartTimeForfkTrackList =
-      'UPDATE freedb_chronoLogica.trackTime SET stopTime = ? where fkTrackList = ?  and stopTime IS NULL';
-    // insert = 'INSERT INTO trackTime (fkTrackList,stopTime) VALUES (?, ?)';
-    const [resultInsert] = await connect.query(lastStartTimeForfkTrackList, [
-      hoy,
-      req.body.idTimeTrack,
-    ]);
 
-    connect.end();
-    res.json(resultInsert);
-  }
-
-
+    if (
+      !req.body.id ||
+      !req.body.action ||
+      (req.body.action !== 'stop' && req.body.action !== 'start')
+    ) {
+      return res.status(400).send('Invalid request')
+    }
+      
+    const now = new Date();
+    const connect = await connectDb();
+    let insert
+    if(req.body.action === 'start'){
+      insert = 'INSERT INTO trackTime (fktrackList,startTime) VALUES (?, ?)';
+      await connect.query(insert, [req.body.id, now])
+    } else {
+      const lastStartTimeForfkTrackList = 'UPDATE trackTime SET stopTime = ? where fkTrackList = ?  and stopTime IS NULL';
+      await connect.query(lastStartTimeForfkTrackList, [
+        now,
+        req.body.id,
+      ]);
+      const startTime ='select MAX(startTime) as startTime from trackTime where fkTrackList = ?'; 
+      const [[{startTime: st}]] = await connect.query(startTime, [
+        req.body.id,
+      ]);
+      
+      const elTimeMins = (now - st) / 1000 / 60;
+      console.log('elTimeMins', elTimeMins);
+      const elapsedTime = 'UPDATE trackList SET elapsedTime = elapsedTime + ? WHERE idtrackList = ?'
+      await connect.query(elapsedTime, [elTimeMins, req.body.id]);
+      connect.end();
+    }
+    res.status(200).end();
   });
 
   //Get all tasks and times
