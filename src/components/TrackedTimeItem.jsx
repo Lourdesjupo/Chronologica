@@ -3,6 +3,7 @@ import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
+  Box,
   Button,
   Paper,
   Stack,
@@ -13,6 +14,7 @@ import { useState } from 'react';
 import addTimeTrack from '../services/ApiTrackTimeRecord';
 import allTracks from '../services/ApiAllTracksAndTime';
 import { useEffect } from 'react';
+import spinner from '../assets/Spinner-1s-40px.svg'
 
 function TrackedTimeItem({
   id,
@@ -74,11 +76,12 @@ function TrackedTimeItem({
               ev.preventDefault()
               handleClick(ev);
             }}
-          >
-            {' '}
-            {taskStatus === 'running'
+          >            
+            {!loading ? 
+            (taskStatus === 'running'
               ? '▢ Detener trabajo'
-              : '▶  Iniciar trabajo'}
+              : '▶  Iniciar trabajo')
+               : <Box display="flex" justifyContent="end" alignItems="end"><img src={spinner} alt="loading" /></Box> }
           </Button>
         </AccordionSummary>
         <AccordionDetails sx={{ backgroundColor: '#F6F4F8' }}>
