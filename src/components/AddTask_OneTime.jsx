@@ -208,7 +208,7 @@ function AddTask_OneTime() {
       </FormControl>
       <Stack alignItems='flex-end'>
         <Link to='/'>
-        <Button variant='outlined' sx={{ m: 4 }} onClick={handleSubmit}>
+        <Button variant='filled' sx={{ m: 4 }} onClick={handleSubmit}>
           Añadir tarea
         </Button>
         </Link>

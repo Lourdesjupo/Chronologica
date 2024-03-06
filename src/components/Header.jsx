@@ -8,7 +8,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
-import logo from '../assets/ChronoLogica-Logo.png';
+import logo from '../assets/Chrono_r.png';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -48,7 +48,7 @@ function Header() {
       <Container maxWidth='xl'>
         <Toolbar disableGutters>
           <Box sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }}>
-            <img src={logo} alt='Logo' style={{ width: 50 + 'px' }} />
+            <img src={logo} alt='Logo' style={{ width: 40 + 'px' }} />
           </Box>
           <Typography
             variant='h6'
@@ -59,7 +59,7 @@ function Header() {
               mr: 2,
               display: { xs: 'none', md: 'flex' },
               fontFamily: 'quicksand',
-              fontWeight: 700,
+              fontWeight: 500,
               // letterSpacing: '.3rem',
               color: 'inherit',
               textDecoration: 'none',
@@ -109,7 +109,7 @@ function Header() {
           </Box>
           {/* Menu desktop- Tablet */}
           <Box sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }}>
-            <img src={logo} alt='Logo' style={{ width: 50 + 'px' }} />
+            <img src={logo} alt='Logo' style={{ width: 70 + 'px' }} />
           </Box>
           <Typography
             variant='h5'
@@ -121,7 +121,7 @@ function Header() {
               display: { xs: 'flex', md: 'none' },
               flexGrow: 1,
               fontFamily: 'quicksand',
-              fontWeight: 700,
+              fontWeight: 400,
               color: 'inherit',
               textDecoration: 'none',
             }}

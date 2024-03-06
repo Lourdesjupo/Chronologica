@@ -15,13 +15,14 @@ import { createTheme, ThemeProvider  } from '@mui/material/styles';
 
 const theme = createTheme({
   typography: {
-    fontFamily: 'Raleway variable',
+    fontFamily: 'Quicksand',
     
   },
   palette: {
      type: 'light',
     primary: {
-      main: '#6750A4',
+      main: '#9684c4',
+     /// main: #6750A4,
     },
     secondary: {
       main: '#625B71',

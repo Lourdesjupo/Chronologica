@@ -67,7 +67,7 @@ function OneTimeList() {
         })}
       </Stack>
       <Stack alignItems='center' sx={{ mt: 10 }}>
-        <Button variant='contained' onClick={handleClickAddTask}>
+        <Button sx={{borderRadius: 4, textTransform: 'inherit'}}variant='contained' onClick={handleClickAddTask}>
           <Link style={{ textDecorationLine: 'none' }} to='/addonetimetask'>
             <Typography sx={{ color: 'white' }}> Añadir Tarea</Typography>
           </Link>
