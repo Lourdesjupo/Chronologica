@@ -52,8 +52,8 @@ function TrackedTimeList(){
           )
         })}
      <Stack alignItems='center' sx={{ mt: 10 }}>
-        <Button variant='contained'>
-         <Link style={{textDecorationLine: "none"}} to='/addtrackedtask'>
+        <Button sx={{borderRadius: 4, textTransform: 'inherit'}} variant='contained'>
+         <Link  style={{textDecorationLine: "none"}} to='/addtrackedtask'>
           <Typography sx={{color:'white'}}>Añadir Tarea</Typography>
          </Link> 
         </Button>

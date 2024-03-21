@@ -21,8 +21,9 @@ function Home() {
           value={value}
           onChange={handleChange}
         >
-          <Tab label='One Time Tasks' />
-          <Tab label='Tracked Time Tasks' />
+          
+          <Tab label='Tareas recurrentes ✔️' />
+          <Tab label='Tareas cronometradas ⌚'  />
         </Tabs>
       </Box>
       {value === 0 ? <OneTimeList/> : <TrackedTimeList/>}

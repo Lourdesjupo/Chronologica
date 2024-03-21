@@ -45,6 +45,7 @@ async function connectDb() {
 }
 
 // Endpoints
+
 //Post AddOneTime
 
 server.post('/api/addonetask', async (req, res) => {
@@ -79,18 +80,26 @@ server.post('/api/addonetaskchecked', async (req, res) => {
 
 //Get lista de tareas oneTimeTask
 
-
   server.get('/api/getonetimetasks', async (req,res)=>{
     const connect = await connectDb();
     //const selectAll = "SELECT * from oneTask "
     const selectAll = "SELECT oneTask.idoneTask,oneTask.name,oneTask.iconName,oneTask.createdAt,oneTask.alertQty,oneTask.alertUnits,completedDate FROM oneTask LEFT JOIN( SELECT fkoneTask, MAX(completedDate) as completedDate FROM oneTaskCompleted GROUP BY fkoneTask) lastComplete ON oneTask.idoneTask = lastComplete.fkoneTask"
     const[tasks] = await connect.query(selectAll)
-  
-
     console.log(tasks)
     connect.end()
     res.json(tasks)
   })
+
+  //Get: Lista de tareas y sus tiempos
+  server.get('/api/allOneTimesAndTasks', async (req, res) => {
+    //const task = req.params.id
+    const connect = await connectDb()
+    const selectTimesAndTasksQuery = `SELECT ot.name, otc.completedDate FROM freedb_ChronoLogica_bbdd.oneTask as ot
+    LEFT JOIN oneTaskCompleted  AS otc ON ot.idoneTask = otc.fkoneTask`
+    const [taskAndTimes] = await connect.query(selectTimesAndTasksQuery)
+    connect.end()
+    res.json(taskAndTimes)
+  });
 
 //Get getOneTimeCalculate (CALCULAR CUANDO SE PONE ROJO O VERDE)
   server.get('/api/getonetimecompletedata/:id', async (req, res) => {
@@ -103,6 +112,8 @@ server.post('/api/addonetaskchecked', async (req, res) => {
     connect.end();
     res.json(tasks);
   });
+
+
 
 
 

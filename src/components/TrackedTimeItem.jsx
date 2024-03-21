@@ -55,6 +55,7 @@ function TrackedTimeItem({
     <>
       <Accordion>
         <AccordionSummary  expandIcon={<ExpandMoreIcon />} id={id}>
+          
           <Paper
             variant='outlined'
             sx={{ width: 10, backgroundColor: color }}
@@ -65,15 +66,18 @@ function TrackedTimeItem({
               width: '33%',
               flexShrink: 0,
               ml: 1,
-              mt: 0.5,
+              mt: 1.5,
             }}
           >
             {nameTask}
           </Typography>
-
+          <Box sx={{width:'170px'}}
+            display="flex" 
+            justifyContent="center">
           <Button 
+            sx={{height:'50px'}}
             onClick={(ev) => {
-              ev.preventDefault()
+              ev.stopPropagation()//previene que no haga bubling (click del acordeon desplegar)
               handleClick(ev);
             }}
           >            
@@ -81,22 +85,23 @@ function TrackedTimeItem({
             (taskStatus === 'running'
               ? '▢ Detener trabajo'
               : '▶  Iniciar trabajo')
-               : <Box display="flex" justifyContent="end" alignItems="end"><img src={spinner} alt="loading" /></Box> }
+               : <Box sx={{width:'100%'}}><img src={spinner} alt="loading" /></Box> }
           </Button>
+          </Box>
         </AccordionSummary>
-        <AccordionDetails sx={{ backgroundColor: '#F6F4F8' }}>
+        <AccordionDetails sx={{ pl: 4.1 , backgroundColor: '#F6F4F8' }}>
           {estimatedTime !== 0 ? (
             <>
-              <Typography>
-                Tiempo estimado finalización tarea: {estimatedTime}
+              <Typography sx={{ }}>
+                Tiempo estimado finalización tarea: {estimatedTime} minutos
               </Typography>
               <Typography>
-                Tiempo restante: {Math.round(estimatedTime - elapsedTime)}
+                Tiempo restante: {Math.round(estimatedTime - elapsedTime)} minutos
               </Typography>
             </>
           ) : (
             <>
-              <Typography>Tiempo invertido: {Math.round(elapsedTime)}</Typography>
+              <Typography>Tiempo invertido: {Math.round(elapsedTime)} minutos</Typography>
             </>
           )}
           {taskStatus === 'running' && (

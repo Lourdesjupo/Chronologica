@@ -10,7 +10,7 @@ import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import logo from '../assets/Chrono_r.png';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const pages = ['Inicio', 'Mis estadísticas', 'Configuración'];
 
@@ -50,23 +50,21 @@ function Header() {
           <Box sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }}>
             <img src={logo} alt='Logo' style={{ width: 40 + 'px' }} />
           </Box>
-          <Typography
-            variant='h6'
-            noWrap
-            component='a'
-            href='/'
-            sx={{
-              mr: 2,
-              display: { xs: 'none', md: 'flex' },
-              fontFamily: 'quicksand',
-              fontWeight: 500,
-              // letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
-          >
-            ChronoLogica
-          </Typography>
+          <Link to='/' style={{color: 'inherit', textDecoration: 'none'}}>
+            <Typography
+              variant='h6'
+              noWrap
+              sx={{
+                mr: 2,
+                display: { xs: 'none', md: 'flex' },
+                fontFamily: 'quicksand',
+                fontWeight: 500
+              }}
+            >
+              ChronoLogica
+            </Typography>
+          </Link>
+          
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton

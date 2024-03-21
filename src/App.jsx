@@ -7,7 +7,7 @@ import { HashRouter } from 'react-router-dom';
 import Home from './components/Home';
 import AddTask_TrackTime from './components/AddTask_TrackTime';
 import AddTask_OneTime from './components/AddTask_OneTime';
-import Example from './components/Example';
+import Report from './components/Report';
 import Example2 from './components/Example2';
 
 
@@ -21,7 +21,7 @@ function App() {
           <Route path='/' element={<Home />} />
           <Route path='/addtrackedtask' element={<AddTask_TrackTime />} />
           <Route path='/addonetimetask' element={<AddTask_OneTime />} />
-          <Route path='/Example' element={<Example/>}></Route>
+          <Route path='/stats' element={<Report/>}></Route>
           <Route path='/Example2' element={<Example2/>}></Route>
         </Routes>
       </HashRouter>
