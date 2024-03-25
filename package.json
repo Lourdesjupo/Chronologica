@@ -11,12 +11,13 @@
     "githubpages": "rm -rf dist && rm -rf docs && npm run build && mv dist docs && git add docs/* && git commit -m \"Publish in GitHub Pages\" && git push"
   },
   "dependencies": {
-    "@emotion/react": "^11.11.1",
+    "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.0",
     "@fontsource-variable/quicksand": "^5.0.5",
     "@fontsource-variable/raleway": "^5.0.6",
     "@fontsource/roboto": "^5.0.4",
     "@mui/icons-material": "^5.13.7",
+    "@mui/joy": "^5.0.0-beta.32",
     "@mui/material": "^5.13.7",
     "@mui/styled-engine-sc": "^5.12.0",
     "@mui/x-data-grid": "^6.19.8",
