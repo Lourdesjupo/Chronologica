@@ -21,11 +21,7 @@ function TaskDay(props) {
   let isHighlighted = false;
   const today = day.toDate();
 
-  // if(taskDays && showDays){
-  //   isHighlighted = taskDays.some((taskDay)=> taskDay.getDate() === today.getDate() && taskDay.getMonth() === today.getMonth() && taskDay.getFullYear() === today.getFullYear() )
-  // }  else if (taskDays && !showDays && today.getMonth()=== month) {
-  //   isHighlighted = taskDays.some((taskDay)=> taskDay.getDate() === today.getDate() && taskDay.getMonth() === today.getMonth() && taskDay.getFullYear() === today.getFullYear() )
-  // }
+
 
 
   //si tengo días y o bien tengo que mostrarlos o bien no tengo que mostrarlos pero el mes del día es igual al mes que se esta mostrando:

@@ -13,10 +13,7 @@ function TrackedTimeList(){
   const [listTasks,setListTasks] = useState([])
 
   async function handleTaskStatusAction (id, action) {
-    console.log(1)
     await addTimeTrack(id, action)
-    console.log(2)
-    console.log('addTimeTrack:', id,action)
     await loadTasks ()
   }
 
