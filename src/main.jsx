@@ -1,7 +1,7 @@
 
 import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
-import './index.css'
+//import './index.css'
 // Supports weights 100-900
 import '@fontsource-variable/raleway';
 // Supports weights 300-700
