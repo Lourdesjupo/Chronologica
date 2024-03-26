@@ -22,8 +22,6 @@ function TaskDay(props) {
   const today = day.toDate();
 
 
-
-
   //si tengo días y o bien tengo que mostrarlos o bien no tengo que mostrarlos pero el mes del día es igual al mes que se esta mostrando:
   if (taskDays && (showDays || (!showDays && today.getMonth() === month))) {
     isHighlighted = taskDays.some(
@@ -54,24 +52,22 @@ function OneTimeReport() {
   const [recurrentTasks, setRecurrentsTasks] = useState([]);
   const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth());
   const [showDays, setShowDays] = useState(true);
-  console.log(showDays);
+  
 
   const handleButton = () => {
     setShowDays(!showDays);
-    console.log(showDays);
   };
 
   const handleMonthChange = (month) => {
-    console.log('mes del cale', month);
     setSelectedMonth(month.toDate().getMonth());
   };
 
-  console.log('recurrent', recurrentTasks);
   useEffect(() => {
     allOneTimeDate().then((recurrentTasks) => {
       setRecurrentsTasks([...recurrentTasks.values()]);
     });
   }, []);
+  
   const selectTaskDates = selectedTask
     ? recurrentTasks[selectedTask].date
     : undefined;
