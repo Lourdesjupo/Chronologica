@@ -133,6 +133,24 @@ function TrackedTimeReport() {
       align: 'center',
       width: 200,
     },
+    {
+      field: 'nSessions',
+      headerName: 'Número de sesiones',
+      type: 'number',
+      width: 200,
+      headerAlign: 'center',
+      align: 'center',
+      editable: false,
+    },
+    {
+      field: 'averageSessionInMinutes',
+      headerName: 'Tiempo medio/sesión(Min)',
+      type: 'number',
+      width: 200,
+      headerAlign: 'center',
+      align: 'center',
+      editable: false,
+    },
   ];
   const theme2 = extendTheme({
     components: {

@@ -107,8 +107,6 @@ server.post('/api/addonetaskchecked', async (req, res) => {
     const connect = await connectDb();
     const selectAll = `select * FROM oneTask, oneTaskCompleted WHERE oneTask.idoneTask = oneTaskCompleted.fkoneTask AND id = ${id} order by completedDate DESC LIMIT 1`;
     const [tasks] = await connect.query(selectAll);
-
-    console.log(tasks);
     connect.end();
     res.json(tasks);
   });
@@ -139,14 +137,71 @@ server.post('/api/addtracktask', async (req, res) => {
 
 //Get lista de tareas TrackList
   server.get('/api/tracktasklist', async (req, res) => {
-    const selectAll = `SELECT tl.idtrackList, tl.nameTask, tl.color, tl.estimatedTime, tl.elapsedTime, MAX(tt.startTime) AS startTime, (SELECT stopTime FROM trackTime WHERE fktrackList = tl.idtrackList AND startTime = MAX(tt.startTime)) AS stopTime FROM trackList AS tl LEFT JOIN trackTime AS tt ON tl.idtrackList = tt.fktrackList GROUP BY tl.idtrackList, tl.nameTask, tl.color, tl.estimatedTime, tl.elapsedTime;`
+    const selectAll = `
+    SELECT 
+      tl.idtrackList, 
+      tl.nameTask, 
+      tl.color, 
+      tl.estimatedTime, 
+      tl.elapsedTime, 
+      MAX(tt.startTime) AS startTime,
+      (
+        SELECT stopTime 
+        FROM trackTime 
+        WHERE fktrackList = tl.idtrackList AND startTime = MAX(tt.startTime)
+      ) AS stopTime 
+    FROM trackList AS tl LEFT JOIN trackTime AS tt ON tl.idtrackList = tt.fktrackList
+    GROUP BY tl.idtrackList, tl.nameTask, tl.color, tl.estimatedTime, tl.elapsedTime;`
     const connect = await connectDb();
     const [result] = await connect.query(selectAll);
-    console.log(result);
-    connect.end();
-    res.json(result);
-  });
-
+    // Result contiene:
+    //   [
+    //     {
+    //       idtrackList: 1,
+    //       nameTask: 'TypeScript',
+    //       color: 'rgb(11, 67, 174)',
+    //       estimatedTime: 0,
+    //       elapsedTime: 23.3743,
+    //       startTime: '2024-03-25T14:12:18.000Z',
+    //       stopTime: '2024-03-25T14:12:19.000Z',
+    //     },
+    //    ....
+    //   ];
+    const selectAllTimesSessions = `SELECT * FROM freedb_ChronoLogica_bbdd.trackTime;`;
+    const [allTimeSessions] = await connect.query(selectAllTimesSessions);
+    console.log(allTimeSessions)
+    //Query alternativa para traer solo sesiones y fk
+    // SELECT count(*) as nsessions, fktrackList  FROM freedb_ChronoLogica_bbdd.trackTime where stopTime is not null group by fktrackList
+    // Resultado allTimeSessions [
+    // {
+    //     "idtrackTime": 1,
+    //     "stopTime": "2024-03-04T12:02:14.000Z",
+    //     "startTime": "2024-03-01T15:47:47.000Z",
+    //     "fktrackList": 1
+    // },
+    // {
+    //     "idtrackTime": 2,
+    //     "stopTime": "2024-03-01T17:15:00.000Z",
+    //     "startTime": "2024-03-01T17:00:00.000Z",
+    //     "fktrackList": 2
+    // },]
+     result.forEach((el)=>{
+        let taskSessions = allTimeSessions.filter(
+          (elFil) => elFil.fktrackList === el.idtrackList
+        );
+        el.nSessions = taskSessions.length;
+        el.averageSessionInMinutes = Math.round(el.elapsedTime / el.nSessions)
+        // taskSessions.forEach((elSession)=> 
+        
+        // el.averageSessionInMinutes2 = Math.round((new Date (elSession.stopTime) - new Date(elSession.startTime))/1000/60)/el.nSessions
+        // )
+      })
+      
+      connect.end();
+      
+      res.json(result);
+    });
+    
   //guardar el dato de stop/start de tracktime
 
   server.post('/api/addTimeTrack', async(req,res)=>{
