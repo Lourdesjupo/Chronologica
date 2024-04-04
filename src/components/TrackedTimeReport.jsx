@@ -1,13 +1,15 @@
 import Box from '@mui/material/Box';
 import {
   DataGrid,
+  GridToolbar,
   GridToolbarContainer,
   GridToolbarExport,
 } from '@mui/x-data-grid';
 import { useEffect, useState } from 'react';
 import { getTrackedListTasks } from '../services/ApiTrackedTime';
-import {  Typography } from '@mui/material';
+import {  Paper, Typography } from '@mui/material';
 import { CircularProgress, ThemeProvider, extendTheme } from '@mui/joy';
+import { red } from '@mui/material/colors';
 //import CircularProgress from '@mui/joy/CircularProgress';
 
 function CustomToolbar() {
@@ -17,6 +19,8 @@ function CustomToolbar() {
     </GridToolbarContainer>
   );
 }
+
+
 
 function TrackedTimeReport() {
   const [trackedList, setTrackedList] = useState([]);
@@ -36,11 +40,14 @@ function TrackedTimeReport() {
   }, []);
 
   const renderProgress = (p) => {
+    console.log('p',p)
     if (!p.row.estimatedTime) {
       return;
     } else {
       return (
+
         <Box sx={{ position: 'relative', display: 'inline-flex' }}>
+
           <ThemeProvider theme={theme2}>
           <CircularProgress
             variant="soft"
@@ -63,6 +70,7 @@ function TrackedTimeReport() {
               justifyContent: 'center',
             }}
           >
+
             <Typography variant='caption' component='div' color='secondary'>
               {`${Math.round(p.row.progress)}%`}
             </Typography>
@@ -81,6 +89,7 @@ function TrackedTimeReport() {
       headerAlign: 'center',
       align: 'center',
       editable: false,
+        
     },
     {
       field: 'elapsedTime',
@@ -116,15 +125,23 @@ function TrackedTimeReport() {
           variant: 'soft',
           color: 'success',
         },
-
       },
     },
   });
+  const CustomToolbar2 = () => {
+  return (
+    <Paper variant='outlined'
+     sx={{ width: 10, backgroundColor: red
+    }}>
+
+    </Paper>
+  );
+};
 
   return (
     <Box sx={{ width: '100%', height: 500 }}>
       <DataGrid
-        slots={{ toolbar: CustomToolbar }}
+        slots={{ toolbar: CustomToolbar}}
         rows={trackedList}
         columns={columns}
         initialState={{
