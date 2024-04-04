@@ -16,7 +16,7 @@ function Report() {
         <Box sx={{ mb: 5, borderBottom: 1, borderColor: 'divider' }}>
           <Tabs value={value} onChange={handleChange}>
             <Tab label='Estadísticas Tareas recurrentes ✔️' />
-            <Tab label='Estadísticas Tareas cronometradas ⌚' />
+            <Tab label='Estadísticas Tareas cronometradas⌚' />
           </Tabs>
         </Box>
         {value === 0 ? <OneTimeReport /> : <TrackedTimeReport />}
