@@ -18,7 +18,7 @@ function CustomToolbar() {
       <GridToolbarExport />
     </GridToolbarContainer>
   );
-}
+} 
 
 
 
@@ -80,16 +80,32 @@ function TrackedTimeReport() {
       //<CircularProgress variant="determinate" value={p.row.progress} />
     }
   };
+
+  const renderName = (p) => {
+    return (<>
+    <Box
+    
+    display="flex" 
+    >
+     <Paper 
+     variant='outlined'
+     sx={{ width: 10, backgroundColor: p.row.color, mr: 2 }}
+     />
+    {p.row.name}
+    </Box>
+
+    </>
+
+    )
+  };
   //dedicación media por sesión, nº de días diferentes dedicados. En el último mes X , en el ultimo dos meses XX
   const columns = [
     {
       field: 'name',
       headerName: 'Nombre de tarea',
       width: 200,
-      headerAlign: 'center',
-      align: 'center',
       editable: false,
-        
+      renderCell:renderName  
     },
     {
       field: 'elapsedTime',
