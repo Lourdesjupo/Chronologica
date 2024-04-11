@@ -1,0 +1,1 @@
+Para subir a githubpages hay que renombrar el .env.local para que se suban los datos del .env

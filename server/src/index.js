@@ -8,7 +8,7 @@ const express = require("express");
 const cors = require("cors");
 const mysql = require("mysql2/promise");
 require('dotenv').config();
-
+const {mountBoard} = require("./boards.js")
 
 
 // Arrancar el servidor
@@ -250,3 +250,5 @@ server.post('/api/addtracktask', async (req, res) => {
     connect.end();
     res.json(result);
   });
+
+  mountBoard(server)

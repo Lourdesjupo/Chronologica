@@ -21,6 +21,7 @@ function App() {
           <Route path='/' element={<Home />} />
           <Route path='/addtrackedtask' element={<AddTask_TrackTime />} />
           <Route path='/addonetimetask' element={<AddTask_OneTime />} />
+          {/* <Route path='/todo' element={<AddTask_Todo />} /> */}
           <Route path='/stats' element={<Report/>}></Route>
           <Route path='/Example2' element={<Example2/>}></Route>
         </Routes>

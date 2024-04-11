@@ -1,8 +1,9 @@
 import { Box, Tab, Tabs } from '@mui/material';
 import OneTimeList from './OneTimeList';
 import TrackedTimeList from './TrackedTimeList';
+import TodoList from './TodoList';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+//import { Link } from 'react-router-dom';
 
 function Home() {
 
@@ -22,11 +23,12 @@ function Home() {
           onChange={handleChange}
         >
           
-          <Tab label='Tareas recurrentes ✔️' />
-          <Tab label='Tareas cronometradas ⌚'  />
+          <Tab label='Recurrentes✔️' />
+          <Tab label='Todo📍'/>
+          <Tab label='Chronometradas⌚'  />
         </Tabs>
       </Box>
-      {value === 0 ? <OneTimeList/> : <TrackedTimeList/>}
+      {value === 1 ?<TodoList/> : value === 0 ? <OneTimeList/> : <TrackedTimeList/>}
     </Box>
   {/* <Link style={{ textDecorationLine: 'none' }} to='/Example'>
    
