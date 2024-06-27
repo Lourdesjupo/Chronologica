@@ -26,7 +26,8 @@ function TrackedTimeItem({
   const taskStatus = startTime && !stopTime ? 'running' : 'stopped';
   const [loading, setLoading] = useState(false);
   const [now, setNow] = useState(new Date());
-  const sessionTimeSecs = Math.round((now - startTime) / 1000);
+  const timeDiff = now - startTime
+  const sessionTimeSecs = Math.round((timeDiff < 0 ? 0 : timeDiff ) / 1000);
   const totalMinutes = Math.floor(sessionTimeSecs / 60);
   const hours = Math.floor(totalMinutes / 60);
   const minutes = totalMinutes % 60;
